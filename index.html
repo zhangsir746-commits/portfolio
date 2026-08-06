@@ -366,6 +366,8 @@ function openModal(id) {
 function closeModal() {
   const v = modalMedia.querySelector('video');
   if (v) { v.pause(); v.removeAttribute('src'); v.load(); }
+  const iframe = modalMedia.querySelector('iframe');
+  if (iframe) { iframe.removeAttribute('src'); }
   modalMedia.innerHTML = '';
   modal.classList.remove('open');
 }
