@@ -353,7 +353,7 @@ function openModal(id) {
   modalCategory.textContent = catNames[w.category] || w.category;
   modalTitle.textContent = w.title;
   if (w.video) {
-    modalMedia.innerHTML = `<video src="${w.video}" controls playsinline preload="metadata" type="video/mp4" x-webkit-airplay="allow" disablePictureInPicture controlsList="nodownload" oncontextmenu="return false" style="width:100%;max-height:70vh;background:#000;"></video>`;
+    modalMedia.innerHTML = `<video src="${w.video}" controls autoplay muted playsinline preload="metadata" type="video/mp4" x-webkit-airplay="allow" disablePictureInPicture controlsList="nodownload" oncontextmenu="return false" style="width:100%;max-height:70vh;background:#000;"></video>`;
   } else if (w.thumbnail) {
     modalMedia.innerHTML = `<img src="${w.thumbnail}" alt="${w.title}" draggable="false" oncontextmenu="return false" style="-webkit-user-drag:none; user-select:none;">`;
   } else {
