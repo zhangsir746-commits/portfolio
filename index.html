@@ -108,11 +108,13 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
 .skill-tag:hover{background:rgba(255,0,110,0.18);border-color:rgba(255,0,110,0.5);box-shadow:0 0 15px rgba(255,0,110,0.15)}
 
 /* Contact */
-.contact-card{max-width:600px;margin:0 auto;padding:3rem;border:1px solid rgba(0,255,255,0.2);background:rgba(18,0,40,0.5);backdrop-filter:blur(10px);text-align:center}
-.contact-item{display:flex;align-items:center;justify-content:center;gap:0.75rem;padding:1rem 0;font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:#E8E0F0}
-.contact-item .label{color:#9888B0;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em}
-.contact-item .value{color:#00FFFF;font-size:1.05rem;letter-spacing:0.05em}
-.contact-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,255,0.2),transparent)}
+.contact-card{max-width:500px;margin:0 auto;padding:3rem 2rem;border:1px solid rgba(0,255,255,0.2);background:rgba(18,0,40,0.5);backdrop-filter:blur(10px);text-align:center;position:relative;overflow:hidden}
+.contact-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,255,0.6),transparent)}
+.contact-icon{margin-bottom:1.5rem}
+.contact-icon svg{width:40px;height:40px;fill:none;stroke:#00FFFF;stroke-width:1.5}
+.contact-wechat{font-family:'Orbitron',sans-serif;font-size:1.5rem;color:#E8E0F0;letter-spacing:0.03em;margin-bottom:0.5rem}
+.contact-id{font-family:'JetBrains Mono',monospace;font-size:1.2rem;color:#00FFFF;letter-spacing:0.08em;padding:0.75rem 1.5rem;border:1px solid rgba(0,255,255,0.3);display:inline-block;margin:0.5rem 0 1rem;background:rgba(0,255,255,0.04);user-select:all;cursor:text}
+.contact-hint{font-size:0.75rem;color:rgba(152,136,176,0.6);font-family:'JetBrains Mono',monospace;letter-spacing:0.05em}
 
 .footer{padding:2rem;text-align:center;border-top:1px solid rgba(152,136,176,0.1);position:relative;z-index:1}
 .footer-text{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#9888B0;letter-spacing:0.1em}
@@ -140,7 +142,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
   .skill-list{grid-template-columns:1fr}
   .work-grid{grid-template-columns:1fr}
   .section{padding:4rem 1rem}
-  .contact-card{padding:2rem 1.25rem}
+  .contact-card{padding:2.5rem 1.25rem}.contact-id{font-size:1rem;padding:0.5rem 1rem}
   .filter-bar{gap:0.5rem}
   .filter-btn{font-size:0.7rem;padding:0.5rem 1rem}
 }
@@ -243,12 +245,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
     <h2 class="section-title">联系我</h2>
     <p class="section-subtitle">开放合作机会，期待与你的团队一起探索 AI 视频的创作边界</p>
     <div class="contact-card">
-      <div class="contact-item">
-        <span class="label">WeChat</span>
-        <span class="value">zhangsir147</span>
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24"><path d="M8.5 11a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm5 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
       </div>
-      <div class="contact-divider"></div>
-      <p style="color:#9888B0;font-size:0.8rem;margin-top:1.25rem;font-family:'JetBrains Mono',monospace;">添加时请备注「作品集 + 来意」</p>
+      <div class="contact-wechat">微信联系</div>
+      <div class="contact-id">zhangsir147</div>
+      <div class="contact-hint">添加请备注「作品集 + 来意」</div>
     </div>
   </div>
 </section>
