@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>张云飞 — AIGC视频创作 · 作品集</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#FF006E #0A0014}
+body{font-family:'Inter',-apple-system,sans-serif;background:#0A0014;color:#E8E0F0;line-height:1.6;overflow-x:hidden;min-height:100vh}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0A0014}
+::-webkit-scrollbar-thumb{background:#FF006E;border-radius:3px}
+
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.06) 0px,rgba(0,0,0,0.06) 1px,transparent 1px,transparent 3px);opacity:0.4}
+
+.ambient-orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:0.15}
+.orb-1{width:600px;height:600px;background:#FF006E;top:-200px;left:-100px;animation:orbFloat1 12s ease-in-out infinite}
+.orb-2{width:500px;height:500px;background:#00FFFF;bottom:-150px;right:-150px;animation:orbFloat2 14s ease-in-out infinite}
+.orb-3{width:400px;height:400px;background:#B347EA;top:50%;left:50%;transform:translate(-50%,-50%);animation:orbFloat3 16s ease-in-out infinite}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(80px,60px) scale(1.1)}66%{transform:translate(-40px,-30px) scale(0.9)}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-60px,-40px) scale(1.15)}66%{transform:translate(50px,30px) scale(0.85)}}
+@keyframes orbFloat3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.2)}}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:all 0.3s ease}
+.nav.scrolled{background:rgba(10,0,20,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,0,110,0.15);padding:0.875rem 2rem}
+.nav-logo{font-family:'Orbitron',sans-serif;font-weight:700;font-size:1.25rem;letter-spacing:0.05em;color:#E8E0F0;text-decoration:none}
+.nav-logo span{color:#FF006E}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:#9888B0;text-decoration:none;text-transform:uppercase;letter-spacing:0.1em;transition:color 0.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#FF006E;transition:width 0.3s}
+.nav-links a:hover{color:#FF006E}
+.nav-links a:hover::after{width:100%}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;z-index:1001}
+.nav-toggle span{display:block;width:24px;height:2px;background:#E8E0F0;transition:all 0.3s}
+
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:#00FFFF;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1.5rem;padding:0.5rem 1rem;border:1px solid rgba(0,255,255,0.3);border-radius:2px;animation:fadeInUp 0.8s ease-out}
+.hero-name{font-family:'Orbitron',sans-serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:900;letter-spacing:0.02em;line-height:1.05;margin-bottom:0.5rem;animation:fadeInUp 0.8s ease-out 0.1s both}
+.hero-name .accent{color:#FF006E;text-shadow:0 0 40px rgba(255,0,110,0.5),0 0 80px rgba(255,0,110,0.3)}
+.hero-role{font-family:'Orbitron',sans-serif;font-size:clamp(1rem,2.5vw,1.5rem);font-weight:500;color:#9888B0;letter-spacing:0.15em;margin-bottom:1rem;animation:fadeInUp 0.8s ease-out 0.2s both}
+.hero-line{width:80px;height:2px;background:linear-gradient(90deg,transparent,#FF006E,transparent);margin-bottom:2rem;animation:fadeInUp 0.8s ease-out 0.3s both}
+.hero-desc{max-width:560px;font-size:1.05rem;color:#9888B0;line-height:1.8;margin-bottom:2.5rem;animation:fadeInUp 0.8s ease-out 0.4s both}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeInUp 0.8s ease-out 0.5s both}
+.btn{padding:0.875rem 2rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;text-decoration:none;cursor:pointer;border:none;transition:all 0.3s;position:relative;display:inline-block}
+.btn-primary{background:#FF006E;color:#fff;border:1px solid #FF006E}
+.btn-primary:hover{background:transparent;color:#FF006E;box-shadow:0 0 30px rgba(255,0,110,0.4),inset 0 0 30px rgba(255,0,110,0.1)}
+.btn-outline{background:transparent;color:#00FFFF;border:1px solid rgba(0,255,255,0.4)}
+.btn-outline:hover{border-color:#00FFFF;box-shadow:0 0 30px rgba(0,255,255,0.3),inset 0 0 30px rgba(0,255,255,0.08)}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+.scroll-indicator{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);animation:bounce 2s ease-in-out infinite}
+.scroll-indicator svg{width:24px;height:24px;stroke:#9888B0;fill:none;stroke-width:1.5}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+.section{padding:6rem 2rem;position:relative;z-index:1}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#FF006E;text-transform:uppercase;letter-spacing:0.25em;margin-bottom:0.75rem}
+.section-title{font-family:'Orbitron',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:1rem;letter-spacing:0.03em}
+.section-subtitle{color:#9888B0;max-width:500px;font-size:0.95rem;line-height:1.7;margin-bottom:3rem}
+.container{max-width:1200px;margin:0 auto}
+
+/* Filter */
+.filter-bar{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:3rem}
+.filter-btn{font-family:'JetBrains Mono',monospace;font-size:0.75rem;padding:0.625rem 1.25rem;background:transparent;color:#9888B0;border:1px solid rgba(152,136,176,0.3);cursor:pointer;text-transform:uppercase;letter-spacing:0.1em;transition:all 0.3s}
+.filter-btn:hover,.filter-btn.active{color:#00FFFF;border-color:#00FFFF;box-shadow:0 0 20px rgba(0,255,255,0.15)}
+.filter-btn.active{background:rgba(0,255,255,0.06)}
+.filter-count{font-size:0.65rem;color:#FF006E;margin-left:0.25rem}
+
+/* Work Grid */
+.work-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem}
+.work-card{position:relative;border:1px solid rgba(152,136,176,0.15);background:rgba(18,0,40,0.6);backdrop-filter:blur(10px);overflow:hidden;cursor:pointer;transition:all 0.4s cubic-bezier(0.25,0.8,0.25,1.2);opacity:0;transform:translateY(30px)}
+.work-card.visible{opacity:1;transform:translateY(0)}
+.work-card:hover{border-color:rgba(255,0,110,0.5);transform:translateY(-4px);box-shadow:0 20px 60px rgba(255,0,110,0.12),0 0 0 1px rgba(255,0,110,0.2)}
+.work-card:hover .card-thumb-inner{transform:scale(1.05)}
+.work-card:hover .card-glitch{opacity:1}
+.card-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:rgba(18,0,40,0.8)}
+.card-thumb-inner{width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.25,0.8,0.25,1)}
+.card-glitch{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s}
+.card-glitch::before,.card-glitch::after{content:'';position:absolute;inset:0;mix-blend-mode:screen}
+.card-glitch::before{background:rgba(255,0,110,0.08);transform:translate(4px,-2px);animation:glitchSlice1 0.3s steps(3) infinite}
+.card-glitch::after{background:rgba(0,255,255,0.08);transform:translate(-4px,2px);animation:glitchSlice2 0.3s steps(3) infinite}
+@keyframes glitchSlice1{0%,100%{clip-path:inset(0 0 90% 0)}20%{clip-path:inset(25% 0 60% 0)}40%{clip-path:inset(55% 0 30% 0)}60%{clip-path:inset(10% 0 70% 0)}80%{clip-path:inset(70% 0 15% 0)}}
+@keyframes glitchSlice2{0%,100%{clip-path:inset(80% 0 5% 0)}20%{clip-path:inset(15% 0 70% 0)}40%{clip-path:inset(40% 0 40% 0)}60%{clip-path:inset(60% 0 15% 0)}80%{clip-path:inset(5% 0 80% 0)}}
+.card-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;transition:all 0.3s;z-index:2}
+.card-play::after{content:'';display:block;width:0;height:0;border-style:solid;border-width:8px 0 8px 14px;border-color:transparent transparent transparent #fff;margin-left:3px}
+.work-card:hover .card-play{background:rgba(255,0,110,0.85);border-color:#FF006E;box-shadow:0 0 30px rgba(255,0,110,0.5)}
+.card-body{padding:1.25rem}
+.card-category{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#FF006E;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.5rem}
+.card-title{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:600;letter-spacing:0.03em;margin-bottom:0.375rem;color:#E8E0F0}
+.card-desc{font-size:0.85rem;color:#9888B0;line-height:1.5}
+.card-tags{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem}
+.card-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:0.25rem 0.625rem;border:1px solid rgba(0,255,255,0.25);color:#00FFFF;letter-spacing:0.08em}
+
+/* Empty state */
+.empty-state{text-align:center;padding:4rem 2rem;grid-column:1/-1}
+.empty-state p{color:#9888B0;font-family:'JetBrains Mono',monospace;font-size:0.85rem;margin-bottom:1rem}
+.empty-state a{color:#FF006E;text-decoration:none}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.about-text p{color:#9888B0;line-height:1.8;margin-bottom:1rem;font-size:0.95rem}
+.about-text .highlight{color:#E8E0F0;font-weight:500}
+.skill-list{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.skill-group h4{font-family:'Orbitron',sans-serif;font-size:0.85rem;color:#00FFFF;margin-bottom:0.75rem;letter-spacing:0.05em}
+.skill-group .skill-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+.skill-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.375rem 0.75rem;background:rgba(255,0,110,0.08);border:1px solid rgba(255,0,110,0.2);color:#E8E0F0;transition:all 0.3s}
+.skill-tag:hover{background:rgba(255,0,110,0.18);border-color:rgba(255,0,110,0.5);box-shadow:0 0 15px rgba(255,0,110,0.15)}
+
+/* Contact */
+.contact-card{max-width:600px;margin:0 auto;padding:3rem;border:1px solid rgba(0,255,255,0.2);background:rgba(18,0,40,0.5);backdrop-filter:blur(10px);text-align:center}
+.contact-item{display:flex;align-items:center;justify-content:center;gap:0.75rem;padding:1rem 0;font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:#E8E0F0}
+.contact-item .label{color:#9888B0;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em}
+.contact-item .value{color:#00FFFF;font-size:1.05rem;letter-spacing:0.05em}
+.contact-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,255,0.2),transparent)}
+
+.footer{padding:2rem;text-align:center;border-top:1px solid rgba(152,136,176,0.1);position:relative;z-index:1}
+.footer-text{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#9888B0;letter-spacing:0.1em}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;z-index:10000;background:rgba(10,0,20,0.92);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-content{max-width:900px;width:100%;max-height:90vh;position:relative}
+.modal-media{width:100%;border:1px solid rgba(255,0,110,0.3);background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.modal-media img,.modal-media video{width:100%;max-height:70vh;object-fit:contain;display:block}
+.modal-close{position:absolute;top:-40px;right:0;background:none;border:none;color:#9888B0;font-family:'JetBrains Mono',monospace;font-size:0.8rem;cursor:pointer;text-transform:uppercase;letter-spacing:0.1em;transition:color 0.3s}
+.modal-close:hover{color:#FF006E}
+.modal-info{margin-top:1.25rem}
+.modal-info .card-category{font-size:0.7rem}
+.modal-info .card-title{font-size:1.25rem;margin-top:0.25rem}
+
+/* Thumbnail image fix */
+.card-thumb img{width:100%;height:100%;object-fit:cover}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(10,0,20,0.96);backdrop-filter:blur(20px);padding:1.5rem 2rem;gap:1.25rem;border-bottom:1px solid rgba(255,0,110,0.15)}
+  .about-grid{grid-template-columns:1fr;gap:2rem}
+  .skill-list{grid-template-columns:1fr}
+  .work-grid{grid-template-columns:1fr}
+  .section{padding:4rem 1rem}
+  .contact-card{padding:2rem 1.25rem}
+  .filter-bar{gap:0.5rem}
+  .filter-btn{font-size:0.7rem;padding:0.5rem 1rem}
+}
+</style>
+</head>
+<body>
+
+<div class="ambient-orb orb-1"></div>
+<div class="ambient-orb orb-2"></div>
+<div class="ambient-orb orb-3"></div>
+
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">&lt;<span>ZYF</span>/&gt;</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#work">作品</a></li>
+    <li><a href="#about">关于</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="菜单">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-tag">AIGC · Video Creation</div>
+  <h1 class="hero-name">张<span class="accent">云</span>飞</h1>
+  <p class="hero-role">AIGC 视频创作者</p>
+  <div class="hero-line"></div>
+  <p class="hero-desc">用 AI 重新定义视觉叙事 — 从电商素材到品牌广告，从写实短片到创意实验，每一帧都由生成式 AI 驱动</p>
+  <div class="hero-cta">
+    <a href="#work" class="btn btn-primary">浏览作品</a>
+    <a href="#contact" class="btn btn-outline">联系我</a>
+  </div>
+  <div class="scroll-indicator">
+    <svg viewBox="0 0 24 24"><polyline points="6 10 12 16 18 10"/></svg>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="container">
+    <div class="section-label">/ portfolio</div>
+    <h2 class="section-title">作品展示</h2>
+    <p class="section-subtitle">全流程 AI 生成，覆盖电商素材、品牌广告宣传、写实短片三大方向</p>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">全部<span class="filter-count" id="countAll">0</span></button>
+            <button class="filter-btn" data-filter="ecommerce">电商素材<span class="filter-count" id="countEcommerce">0</span></button>
+      <button class="filter-btn" data-filter="advertising">广告宣传<span class="filter-count" id="countAdvertising">0</span></button>
+      <button class="filter-btn" data-filter="shortfilm">写实短片<span class="filter-count" id="countShortfilm">0</span></button>
+    </div>
+
+    <div class="work-grid" id="workGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-label">/ about</div>
+    <h2 class="section-title">关于我</h2>
+    <p class="section-subtitle">专注 AIGC 视频创作，熟悉主流 AI 生成工具链与后期制作流程</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>我是<span class="highlight">张云飞</span>，一名专注于 <span class="highlight">AIGC 视频创作</span>的内容创作者。</p>
+        <p>从电商素材到品牌广告，从写实短片到实验性视觉作品，我擅长利用生成式 AI 工具构建完整的视频生产管线 — 从概念设计、图像生成、视频合成到后期剪辑与音效设计。</p>
+        <p>持续跟进 AI 视频领域的最新进展，不断探索生成式模型在商业创作中的落地边界。</p>
+      </div>
+      <div class="skill-list">
+        <div class="skill-group">
+          <h4>▸ AI 视频生成</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Runway Gen-3</span><span class="skill-tag">Pika Labs</span><span class="skill-tag">Kling</span><span class="skill-tag">Hailuo AI</span><span class="skill-tag">Luma Dream Machine</span><span class="skill-tag">SVD</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>▸ AI 图像生成</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Midjourney</span><span class="skill-tag">Stable Diffusion</span><span class="skill-tag">ComfyUI</span><span class="skill-tag">SDXL</span><span class="skill-tag">DALL-E 3</span><span class="skill-tag">IPAdapter</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>▸ 后期 &amp; 合成</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">After Effects</span><span class="skill-tag">Premiere Pro</span><span class="skill-tag">DaVinci Resolve</span><span class="skill-tag">Topaz AI</span><span class="skill-tag">Magnific</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>▸ 辅助工具</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">ChatGPT</span><span class="skill-tag">Claude</span><span class="skill-tag">ElevenLabs</span><span class="skill-tag">Suno / Udio</span><span class="skill-tag">Photoshop</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-label">/ contact</div>
+    <h2 class="section-title">联系我</h2>
+    <p class="section-subtitle">开放合作机会，期待与你的团队一起探索 AI 视频的创作边界</p>
+    <div class="contact-card">
+      <div class="contact-item">
+        <span class="label">WeChat</span>
+        <span class="value">zhangsir147</span>
+      </div>
+      <div class="contact-divider"></div>
+      <p style="color:#9888B0;font-size:0.8rem;margin-top:1.25rem;font-family:'JetBrains Mono',monospace;">添加时请备注「作品集 + 来意」</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p class="footer-text">© 2026 张云飞 · AIGC Video Creator</p>
+</footer>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">[ 关闭 ]</button>
+    <div class="modal-media" id="modalMedia"></div>
+    <div class="modal-info">
+      <div class="card-category" id="modalCategory"></div>
+      <h3 class="card-title" id="modalTitle"></h3>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---- NAV ----
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+const navToggle=document.getElementById('navToggle'),navLinks=document.getElementById('navLinks');
+navToggle.addEventListener('click',()=>{navLinks.classList.toggle('open')});
+navLinks.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+// ---- SMOOTH SCROLL ----
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t){const top=t.getBoundingClientRect().top+window.scrollY-80;window.scrollTo({top,behavior:'smooth'})}})});
+
+// ---- LOAD WORKS ----
+const catNames = {"ecommerce": "电商素材", "advertising": "广告宣传", "shortfilm": "写实短片"};
+const workGrid = document.getElementById('workGrid');
+let allWorks = [];
+
+function renderCard(w) {
+  const catName = catNames[w.category] || w.category;
+  const tagsHtml = (w.tags||[]).map(t => `<span class="card-tag">${t}</span>`).join('');
+  const thumbHtml = w.thumbnail
+    ? `<img class="card-thumb-inner" src="${w.thumbnail}" alt="${w.title}" loading="lazy">`
+    : `<div class="card-thumb-inner" style="background:linear-gradient(135deg,#1a0a2e,#2d0b40);display:flex;align-items:center;justify-content:center;"><span style="font-family:'Orbitron',sans-serif;font-size:0.75rem;color:rgba(255,255,255,0.1);letter-spacing:0.15em;">NO PREVIEW</span></div>`;
+  return `
+    <article class="work-card" data-category="${w.category}" data-id="${w.id}">
+      <div class="card-thumb">
+        ${thumbHtml}
+        <div class="card-glitch"></div>
+        ${w.video ? '<div class="card-play"></div>' : ''}
+      </div>
+      <div class="card-body">
+        <div class="card-category">${catName}</div>
+        <h3 class="card-title">${w.title}</h3>
+        ${w.description ? `<p class="card-desc">${w.description}</p>` : ''}
+        ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
+      </div>
+    </article>`;
+}
+
+function renderAll(filter='all') {
+  const filtered = filter==='all' ? allWorks : allWorks.filter(w=>w.category===filter);
+  if (filtered.length===0) {
+    workGrid.innerHTML = `<div class="empty-state"><p>暂无作品</p><a href="/admin">前往管理后台添加作品 →</a></div>`;
+  } else {
+    workGrid.innerHTML = filtered.map(renderCard).join('');
+  }
+  // Observe new cards
+  document.querySelectorAll('.work-card').forEach((card,i)=>{
+    card.style.transitionDelay = `${i*0.06}s`;
+    card.addEventListener('click',()=>openModal(card.dataset.id));
+    requestAnimationFrame(()=>card.classList.add('visible'));
+  });
+}
+
+function updateCounts() {
+  document.getElementById('countAll').textContent = allWorks.length;
+  for (const [key] of Object.entries(catNames)) {
+    const el = document.getElementById('count' + key.charAt(0).toUpperCase() + key.slice(1));
+    if (el) el.textContent = allWorks.filter(w=>w.category===key).length;
+  }
+}
+
+function loadWorks() {
+  allWorks = [{"id": "291e8341", "title": "拟真人物", "category": "advertising", "description": "拟真", "tags": [], "thumbnail": "f0a5154d142940e9952478ca3a8941ea.png", "video": "49e5a219112442a6bbbf6d471ec26879.mp4", "created_at": "2026-08-07T04:59"}, {"id": "37243406", "title": "写实记录《断线》", "category": "shortfilm", "description": "整体架构\n故事脚本-人物模版-提示词架构-图片生成-视频生成-剪辑剪映", "tags": [], "thumbnail": "959729e495c64518b6773b161e0df094.jpg", "video": "0feca68e66a44fbd8e25389394d8a1a6.mp4", "created_at": "2026-08-07T03:33"}];
+  updateCounts();
+  renderAll();
+}
+
+// ---- FILTER ----
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderAll(btn.dataset.filter);
+  });
+});
+
+// ---- MODAL ----
+const modal=document.getElementById('modal'),modalMedia=document.getElementById('modalMedia'),modalClose=document.getElementById('modalClose'),modalCategory=document.getElementById('modalCategory'),modalTitle=document.getElementById('modalTitle');
+
+function openModal(id) {
+  const w = allWorks.find(x=>x.id===id);
+  if (!w) return;
+  modalCategory.textContent = catNames[w.category] || w.category;
+  modalTitle.textContent = w.title;
+  if (w.video) {
+    modalMedia.innerHTML = `<video src="${w.video}" controls autoplay playsinline style="width:100%;max-height:70vh;"></video>`;
+  } else if (w.thumbnail) {
+    modalMedia.innerHTML = `<img src="${w.thumbnail}" alt="${w.title}">`;
+  } else {
+    modalMedia.innerHTML = `<p style="color:#9888B0;font-family:'JetBrains Mono',monospace;padding:3rem;">暂无预览内容</p>`;
+  }
+  modal.classList.add('open');
+}
+modalClose.addEventListener('click',()=>modal.classList.remove('open'));
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('open')});
+
+// ---- PARALLAX ----
+document.addEventListener('mousemove',e=>{
+  const x=(e.clientX/window.innerWidth-0.5)*30,y=(e.clientY/window.innerHeight-0.5)*30;
+  document.querySelector('.orb-1').style.transform=`translate(${x}px,${y}px) scale(1)`;
+  document.querySelector('.orb-2').style.transform=`translate(${-x}px,${-y}px) scale(1)`;
+});
+
+// ---- INIT ----
+loadWorks();
+</script>
+</body>
+</html>
